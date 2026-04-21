@@ -1,8 +1,11 @@
+<img src="./frontend/public/logo.png" width="100">
 # Explainable AI: Financial Forecast & Intelligence Engine
 
 Explainable AI is a premium, institutional-grade financial intelligence platform that doesn't just predict the future—it explains it. By combining advanced Machine Learning (Random Forest) with state-of-the-art LLMs (Gemini/OpenRouter), it delivers deep, data-driven insights into stock movements with professional-grade clarity.
 
 ---
+<img src="./frontend/public/prev.png">
+
 ## Features
 - **Stock Data Fetching**: Retrieves historical and fundamental data using Yahoo Finance.
 - **News Sentiment**: Fetches the latest related news via NewsData.io.
