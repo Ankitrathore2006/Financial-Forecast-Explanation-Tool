@@ -78,15 +78,33 @@ const Dashboard = () => {
     };
 
     const getSectionConfig = (title, iconFromMarkdown) => {
-        if (iconFromMarkdown) return { icon: iconFromMarkdown, color: 'blue' };
-
+        // The icon comes directly embedded in the markdown header from the AI (e.g. "attach_money")
+        // Pass it straight through with a color based on the section title for richness.
         const t = title.toLowerCase();
-        if (t.includes('verdict')) return { icon: 'verified', color: 'blue' };
+
+        const colorByTitle = (() => {
+            if (t.includes('verdict') || t.includes('overall')) return 'blue';
+            if (t.includes('snapshot') || t.includes('market')) return 'amber';
+            if (t.includes('news')) return 'purple';
+            if (t.includes('technical')) return 'green';
+            if (t.includes('fundamental')) return 'blue';
+            if (t.includes('past') || t.includes('performance')) return 'green';
+            if (t.includes('risk')) return 'red';
+            if (t.includes('insight') || t.includes('final')) return 'green';
+            return 'blue';
+        })();
+
+        if (iconFromMarkdown) return { icon: iconFromMarkdown, color: colorByTitle };
+
+        // Fallback icon mapping if AI doesn't embed one
+        if (t.includes('verdict') || t.includes('overall')) return { icon: 'psychology', color: 'blue' };
+        if (t.includes('snapshot') || t.includes('market')) return { icon: 'attach_money', color: 'amber' };
         if (t.includes('news')) return { icon: 'newspaper', color: 'purple' };
         if (t.includes('technical')) return { icon: 'show_chart', color: 'green' };
         if (t.includes('fundamental')) return { icon: 'analytics', color: 'blue' };
+        if (t.includes('past') || t.includes('performance')) return { icon: 'bar_chart', color: 'green' };
         if (t.includes('risk')) return { icon: 'warning', color: 'red' };
-        if (t.includes('insight')) return { icon: 'lightbulb', color: 'green' };
+        if (t.includes('insight') || t.includes('final')) return { icon: 'auto_awesome', color: 'green' };
         return { icon: 'bar_chart', color: 'blue' };
     };
 
@@ -95,7 +113,7 @@ const Dashboard = () => {
             {/* SideNavBar */}
             <aside className="hidden lg:flex h-screen w-72 sticky left-0 top-0 bg-[#111417] shadow-2xl shadow-blue-900/10 flex-col py-8 gap-2 z-50">
                 <div className="text-lg font-black text-[#adc6ff] mb-8 px-8 font-headline tracking-tighter">
-                    The Oracle
+                    The Explainable.AI
                 </div>
                 <nav className="flex-1 flex flex-col gap-1 overflow-y-auto custom-scrollbar px-4">
                     <a href="/dashboard" className="bg-gradient-to-r from-[#adc6ff] to-[#4b8eff] text-slate-950 rounded-xl px-6 py-3 shadow-[0_0_20px_rgba(173,198,255,0.3)] flex items-center gap-3 font-semibold text-sm transition-all active:scale-95 mb-4">
@@ -159,12 +177,12 @@ const Dashboard = () => {
                         <div className="relative group">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors">search</span>
                             <input
-                                className="bg-gradient-to-br from-[#111417] to-[#1a1f24] border border-white/5 rounded-full pl-10 pr-4 py-2.5 text-sm w-80 focus:ring-1 focus:ring-primary/40 focus:border-primary/20 transition-all outline-none shadow-inner"
-                                placeholder="Search symbol (e.g. TSLA, NVDA)..."
+                                className="bg-gradient-to-br from-[#111417] to-[#1a1f24] border border-white/5 rounded-full pl-10 pr-4 py-2.5 text-sm w-80 focus:ring-1 focus:ring-primary/40 focus:border-primary/20 transition-all outline-none shadow-inner placeholder:text-slate-600"
+                                placeholder="Ask e.g. 'Will Tesla go up in 3 months?'"
                                 type="text"
                                 onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        handleAnalyze(e.target.value);
+                                    if (e.key === 'Enter' && e.target.value.trim()) {
+                                        handleAnalyze(e.target.value.trim());
                                         e.target.value = '';
                                     }
                                 }}
@@ -200,9 +218,12 @@ const Dashboard = () => {
                                 <div>
                                     <span className="text-primary font-bold text-sm tracking-widest uppercase">Live AI Projection</span>
                                     <h2 className="text-4xl md:text-5xl font-extrabold font-headline mt-2 tracking-tight">
-                                        {result ? `${result.stock_name}` : 'Search Market'}
+                                        {result ? result.stock_name : 'Search Market'}
                                     </h2>
-                                    <p className="text-on-surface-variant mt-2 text-lg">Next 24-hour performance forecast</p>
+                                    {result && result.original_query && result.original_query.toUpperCase() !== result.stock_name && (
+                                        <p className="text-on-surface-variant mt-1 text-sm font-medium opacity-60 italic truncate max-w-sm">"{result.original_query}"</p>
+                                    )}
+                                    {/* <p className="text-on-surface-variant mt-2 text-lg">Next 24-hour performance forecast</p> */}
                                 </div>
                                 <div className="flex items-center gap-2 bg-surface-container-highest px-4 py-2 rounded-full border border-outline-variant/10">
                                     <span className={`w-2 h-2 ${isLoading ? 'bg-amber-400' : 'bg-primary'} rounded-full animate-pulse`}></span>
@@ -213,7 +234,7 @@ const Dashboard = () => {
                             {!result && !isLoading && (
                                 <div className="relative z-10 flex flex-col items-center justify-center py-12">
                                     <StockSearch onSearch={handleAnalyze} isLoading={isLoading} />
-                                    <p className="text-on-surface-variant text-sm mt-4 italic">The Oracle is waiting for your input...</p>
+                                    <p className="text-on-surface-variant text-sm mt-4 italic">The Explainable.AI is waiting for your input...</p>
                                 </div>
                             )}
 
@@ -225,7 +246,8 @@ const Dashboard = () => {
                             )}
 
                             {result && !isLoading && (
-                                <div className="relative z-10 flex flex-wrap items-center gap-12 mt-8">
+                                <div className="relative z-10 flex flex-wrap items-center gap-10 mt-8">
+                                    {/* Direction */}
                                     <div className="flex flex-col">
                                         <span className="text-on-surface-variant text-sm font-medium mb-1">Direction</span>
                                         <div className={`flex items-center gap-3 ${result.prediction === 'UP' ? 'text-primary' : result.prediction === 'DOWN' ? 'text-error' : 'text-amber-400'}`}>
@@ -236,6 +258,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                     <div className="hidden md:block w-px h-24 bg-outline-variant/20"></div>
+                                    {/* Confidence */}
                                     <div className="flex flex-col">
                                         <span className="text-on-surface-variant text-sm font-medium mb-1">Confidence</span>
                                         <div className="flex items-end gap-2">
@@ -243,6 +266,21 @@ const Dashboard = () => {
                                             <span className="text-3xl font-bold text-primary mb-2">%</span>
                                         </div>
                                     </div>
+                                    {/* Current Price — shown only when available */}
+                                    {result.current_price && (
+                                        <>
+                                            <div className="hidden md:block w-px h-24 bg-outline-variant/20"></div>
+                                            <div className="flex flex-col">
+                                                <span className="text-on-surface-variant text-sm font-medium mb-1">Live Price</span>
+                                                <div className="flex items-end gap-1">
+                                                    <span className="text-4xl md:text-5xl font-black font-headline text-amber-400 tracking-tighter">
+                                                        {result.current_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </span>
+                                                    <span className="text-lg font-bold text-amber-400/60 mb-1">{result.currency || 'USD'}</span>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             )}
 
@@ -275,18 +313,23 @@ const Dashboard = () => {
                                 <div className="space-y-4">
                                     {Array.from(new Set(history.map(h => h.stock_name))).slice(0, 3).map((symbol, idx) => {
                                         const lastEntry = history.find(h => h.stock_name === symbol);
+                                        // Shorten the symbol for display if it's a long NLP query fallback
+                                        const displaySymbol = symbol.length > 8 ? symbol.substring(0, 8) + '…' : symbol;
+                                        const isUp = lastEntry.prediction === 'UP';
                                         return (
-                                            <div key={idx} onClick={() => handleAnalyze(symbol)} className="flex justify-between items-center group cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-all">
+                                            <div key={idx} onClick={() => handleAnalyze(symbol)} className="flex justify-between items-center group cursor-pointer hover:bg-white/5 p-3 rounded-xl transition-all">
                                                 <div className="flex gap-3 items-center">
-                                                    <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-bold text-xs">{symbol}</div>
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs shrink-0 ${isUp ? 'bg-primary/10 text-primary border border-primary/20' : 'bg-error/10 text-error border border-error/20'}`}>
+                                                        {symbol.substring(0, 4)}
+                                                    </div>
                                                     <div>
-                                                        <div className="font-bold text-sm">{symbol}</div>
+                                                        <div className="font-bold text-sm" title={symbol}>{displaySymbol}</div>
                                                         <div className="text-[10px] text-on-surface-variant uppercase tracking-widest">AI Projected</div>
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <div className={`text-sm font-bold ${lastEntry.prediction === 'UP' ? 'text-primary' : 'text-error'}`}>
-                                                        {lastEntry.prediction === 'UP' ? '+' : '-'}{(Math.random() * 5).toFixed(2)}%
+                                                    <div className={`text-sm font-bold ${isUp ? 'text-primary' : 'text-error'}`}>
+                                                        {isUp ? '+' : '-'}{(Math.random() * 5).toFixed(2)}%
                                                     </div>
                                                     <div className="text-[10px] text-on-surface-variant">Conf: {lastEntry.confidence}%</div>
                                                 </div>
@@ -348,7 +391,7 @@ const Dashboard = () => {
                             </div>
                             <div className="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between shadow-2xl border border-white/5">
                                 <div>
-                                    <h3 className="font-headline font-bold text-xl">Oracle Statistics</h3>
+                                    <h3 className="font-headline font-bold text-xl">Explainable.AI Statistics</h3>
                                     <p className="text-on-surface-variant text-sm mt-1">Accuracy over last 30 days</p>
                                 </div>
                                 <div className="py-8 text-center">
@@ -386,7 +429,7 @@ const Dashboard = () => {
                         <motion.section
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className=" grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12"
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12"
                         >
                             <div className="col-span-full flex items-center gap-4 mb-4">
                                 <div className="h-px flex-1 bg-outline-variant/20"></div>
@@ -418,7 +461,7 @@ const Dashboard = () => {
                 {/* Footer */}
                 <footer className="mt-auto w-full py-12 px-8 bg-slate-950 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-slate-500 font-body text-xs uppercase tracking-widest">
-                        © 2024 Luminous Oracle AI. All rights reserved.
+                        © 2024 Explainable AI. All rights reserved.
                     </div>
                     <div className="flex gap-8">
                         <a className="text-slate-500 hover:text-[#adc6ff] transition-colors font-body text-xs uppercase tracking-widest underline-offset-4 hover:underline" href="#">Privacy Policy</a>

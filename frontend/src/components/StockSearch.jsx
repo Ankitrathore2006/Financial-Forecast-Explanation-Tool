@@ -54,7 +54,7 @@ const StockSearch = ({ onSearch, isLoading }) => {
             if (!isOpen) setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
-          placeholder="Search stock (e.g., TSLA, AAPL, RELIANCE.NS)"
+          placeholder="Ask anything... e.g. 'Will Apple go up in 6 months?'"
           className="w-full bg-[#0c0e12] border-none ring-1 ring-white/5 focus:ring-2 focus:ring-[#adc6ff]/20 rounded-full py-4 pl-14 pr-12 text-on-surface placeholder:text-outline/50 transition-all outline-none headline-font font-bold tracking-tight shadow-2xl"
         />
         <div className="absolute inset-y-0 right-4 flex items-center">

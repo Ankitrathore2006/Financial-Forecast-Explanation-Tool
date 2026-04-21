@@ -48,20 +48,42 @@ def fetch_stock_info(ticker_symbol: str) -> Dict[str, Any]:
             "profit_growth": info.get("earningsGrowth", "N/A"),
             "debt": info.get("totalDebt", "N/A"),
             "roe": info.get("returnOnEquity", "N/A"),
-            "roce": info.get("returnOnAssets", "N/A"), # Close enough for quick look
+            "roce": info.get("returnOnAssets", "N/A"),
             "pe_ratio": info.get("trailingPE", "N/A"),
-            "industry_pe": info.get("forwardPE", "N/A"), # Placeholder for industry
+            "industry_pe": info.get("forwardPE", "N/A"),
             "promoter_holding": info.get("heldPercentInsiders", "N/A"),
             "industry": info.get("industry", "N/A"),
-            "sector": info.get("sector", "N/A")
+            "sector": info.get("sector", "N/A"),
+            # Market Snapshot
+            "current_price": info.get("currentPrice") or info.get("regularMarketPrice", "N/A"),
+            "prev_close": info.get("previousClose", "N/A"),
+            "open": info.get("open", "N/A"),
+            "day_low": info.get("dayLow", "N/A"),
+            "day_high": info.get("dayHigh", "N/A"),
+            "week_52_low": info.get("fiftyTwoWeekLow", "N/A"),
+            "week_52_high": info.get("fiftyTwoWeekHigh", "N/A"),
+            "volume": info.get("volume", "N/A"),
+            "market_cap": info.get("marketCap", "N/A"),
+            "target_price": info.get("targetMeanPrice", "N/A"),
+            "eps": info.get("trailingEps", "N/A"),
+            "exchange": info.get("exchange", "N/A"),
+            "currency": info.get("currency", "USD"),
+            "after_hours_price": info.get("postMarketPrice", "N/A"),
+            "company_summary": info.get("longBusinessSummary", "No summary available.")[:500] if info.get("longBusinessSummary") else "N/A",
         }
     except Exception as e:
         print(f"Info fetch failed: {e}. Using fallback.")
         return {
-            "revenue_growth": "12.5%", "profit_growth": "8.2%", "debt": "$1.2B",
-            "roe": "15.4%", "roce": "12.1%", "pe_ratio": "24.5",
-            "industry_pe": "22.0", "promoter_holding": "54%",
-            "industry": "Technology", "sector": "Technology"
+            "revenue_growth": "N/A", "profit_growth": "N/A", "debt": "N/A",
+            "roe": "N/A", "roce": "N/A", "pe_ratio": "N/A",
+            "industry_pe": "N/A", "promoter_holding": "N/A",
+            "industry": "N/A", "sector": "N/A",
+            "current_price": "N/A", "prev_close": "N/A", "open": "N/A",
+            "day_low": "N/A", "day_high": "N/A", "week_52_low": "N/A",
+            "week_52_high": "N/A", "volume": "N/A", "market_cap": "N/A",
+            "target_price": "N/A", "eps": "N/A", "exchange": "N/A",
+            "currency": "USD", "after_hours_price": "N/A",
+            "company_summary": "N/A",
         }
 
 def fetch_stock_news(ticker_symbol: str) -> str:

@@ -40,7 +40,7 @@ const Login = () => {
 
           <div className="relative z-10 mb-10 text-center">
             <div className="flex justify-center mb-6">
-              <img alt="Luminous Oracle" className="h-16 w-auto object-contain" src="/logo.png" />
+              <img alt="Explainable" className="h-16 w-auto object-contain" src="/logo.png" />
             </div>
             <h2 className="font-headline text-4xl font-extrabold text-on-surface tracking-tight mb-2">Welcome Back</h2>
             <p className="text-on-surface-variant font-medium">Access your financial foresight dashboard.</p>
@@ -96,12 +96,12 @@ const Login = () => {
           </form>
 
           <p className="mt-10 text-center text-sm text-on-surface-variant font-medium relative z-10">
-            New to Luminous Oracle? <Link className="text-primary font-bold hover:underline underline-offset-4" to="/signup">Create an account</Link>
+            New to Explainable AI? <Link className="text-primary font-bold hover:underline underline-offset-4" to="/signup">Create an account</Link>
           </p>
         </div>
 
         <div className="mt-8 text-center">
-          <p className="font-label text-xs text-outline tracking-wider uppercase opacity-50">© 2024 LUMINOUS ORACLE. DATA-DRIVEN FORESIGHT.</p>
+          <p className="font-label text-xs text-outline tracking-wider uppercase opacity-50">© 2024 Explainable. DATA-DRIVEN FORESIGHT.</p>
         </div>
       </motion.div>
     </div>

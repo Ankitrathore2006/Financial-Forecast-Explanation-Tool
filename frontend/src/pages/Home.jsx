@@ -11,28 +11,28 @@ const Home = () => {
           {/* Background Radial Glows */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[#4b8eff]/10 blur-[120px] rounded-full pointer-events-none"></div>
           <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#ef6719]/5 blur-[100px] rounded-full pointer-events-none"></div>
-          
+
           <div className="max-w-7xl mx-auto px-8 relative z-10 text-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/20 mb-8"
             >
               <span className="material-symbols-outlined text-primary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
-              <span className="text-xs font-semibold tracking-widest uppercase text-on-surface-variant">Powered by Luminous Oracle AI</span>
+              <span className="text-xs font-semibold tracking-widest uppercase text-on-surface-variant">Powered by Explainable AI</span>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-6xl md:text-8xl font-extrabold tracking-tighter text-on-surface mb-8 leading-[1.1] font-headline"
             >
-              AI-Powered Stock <br/>
+              AI-Powered Stock <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Forecast & Explanation</span> Engine
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -40,8 +40,8 @@ const Home = () => {
             >
               Get intelligent predictions with clear reasoning. Our engine doesn't just show you the future; it tells you why it's happening.
             </motion.p>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -55,16 +55,16 @@ const Home = () => {
                 See how it works
               </button>
             </motion.div>
-            
+
             {/* Abstract Dashboard Preview */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 1 }}
               className="mt-24 relative max-w-5xl mx-auto"
             >
               <div className="rounded-xl overflow-hidden shadow-2xl shadow-blue-900/20 bg-surface-container-low p-2">
-                <img alt="Financial Dashboard" className="rounded-lg w-full h-auto shadow-2xl" src="/assets/dashboard_preview.png"/>
+                <img alt="Financial Dashboard" className="rounded-lg w-full h-auto shadow-2xl" src="/assets/dashboard_preview.png" />
               </div>
             </motion.div>
           </div>
@@ -77,7 +77,7 @@ const Home = () => {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 font-headline">Precision Intelligence</h2>
               <p className="text-on-surface-variant text-lg max-w-2xl font-body">Sophisticated forecasting models built for the modern institutional investor.</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
               {/* Feature 1: Explainable AI */}
               <div className="md:col-span-8 group relative overflow-hidden bg-surface-container-low rounded-xl p-10 transition-all duration-500 hover:bg-surface-container">
@@ -97,7 +97,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="absolute bottom-0 right-0 w-1/2 h-full opacity-30 group-hover:opacity-50 transition-opacity duration-700">
-                  <img alt="Abstract Data Visualization" className="w-full h-full object-cover rounded-tl-xl" src="/assets/ai_visualization.png"/>
+                  <img alt="Abstract Data Visualization" className="w-full h-full object-cover rounded-tl-xl" src="/assets/ai_visualization.png" />
                 </div>
               </div>
 
@@ -127,10 +127,10 @@ const Home = () => {
                 </div>
               </div>
 
-              {/* Feature 4: The Oracle's Edge */}
+              {/* Feature 4: The Explainable.AI's Edge */}
               <div className="md:col-span-8 bg-gradient-to-br from-surface-container-low to-slate-900 rounded-xl p-10 flex flex-col md:flex-row items-start md:items-center justify-between transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/5 font-body">
                 <div className="max-w-sm">
-                  <h3 className="text-2xl font-bold mb-4 font-headline">The Oracle's Edge</h3>
+                  <h3 className="text-2xl font-bold mb-4 font-headline">The Explainable.AI's Edge</h3>
                   <p className="text-on-surface-variant mb-6">The first platform to combine deep macro-economic analysis with micro-social sentiment in a single unified forecast engine.</p>
                   <a className="text-primary font-bold inline-flex items-center gap-2 hover:underline" href="#">
                     Read whitepaper <span className="material-symbols-outlined">arrow_forward</span>
@@ -145,7 +145,7 @@ const Home = () => {
         {/* CTA Section */}
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-primary/5 opacity-40"></div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

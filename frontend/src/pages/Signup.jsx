@@ -38,8 +38,8 @@ const Signup = () => {
       >
         <div className="mb-12 text-center">
           <div className="inline-flex items-center gap-3 mb-6">
-            <img alt="Luminous Oracle Logo" className="w-12 h-12 object-contain shadow-lg shadow-primary/10" src="/logo.png" />
-            <h1 className="font-headline text-3xl font-black tracking-tighter text-primary">Luminous Oracle</h1>
+            <img alt="Explainable Logo" className="w-12 h-12 object-contain shadow-lg shadow-primary/10" src="/logo.png" />
+            <h1 className="font-headline text-3xl font-black tracking-tighter text-primary">Explainable</h1>
           </div>
           <p className="text-on-surface-variant font-medium tracking-wide">Enter the realm of predictive clarity.</p>
         </div>
@@ -83,7 +83,7 @@ const Signup = () => {
                 </div>
                 <input
                   className="w-full bg-white/5 border border-white/10 ring-1 ring-white/5 focus:ring-2 focus:ring-primary/40 focus:bg-white/10 rounded-lg py-4 pl-14 pr-6 text-white placeholder:text-slate-500 transition-all duration-300 outline-none"
-                  placeholder="name@luminousoracle.ai"
+                  placeholder="name@explainable.ai"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}

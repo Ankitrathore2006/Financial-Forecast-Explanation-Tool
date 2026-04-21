@@ -8,10 +8,10 @@ const AnalysisCard = ({ title, content, defaultOpen = true, icon: Icon, color = 
 
   const colorMap = {
     blue: 'text-[#adc6ff] bg-[#adc6ff]/10 border-[#adc6ff]/20',
-    green: 'text-[#4b8eff] bg-[#4b8eff]/10 border-[#4b8eff]/20',
+    green: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
     red: 'text-error bg-error/10 border-error/20',
     purple: 'text-[#ffb595] bg-[#ffb595]/10 border-[#ffb595]/20',
-    amber: 'text-tertiary bg-tertiary/10 border-tertiary/20',
+    amber: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
   };
 
   return (
